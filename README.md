@@ -14,6 +14,8 @@
 6. Install dbt-core and dbt-postgres using pip (if you don’t have) on your preferred environment.
 7. Now you can run `dbt run` with the test model and check public_pipedrive_analytics schema to see the dbt result (with one test model)
 
+** Important Note: ** If you'd like these steps to work, then avoid using Python's latest 3.14 version as dbt currently has compatibility issues with it.
+
 ## Project
 1. Remove the test model once you make sure it works
 2. Dive deep into the Pipedrive CRM source data to gain a thorough understanding of all its details. (You may also research the Pipedrive CRM tool terms).
@@ -32,3 +34,5 @@
   &nbsp;&nbsp;&nbsp;Step 9: Renewal/Expansion
 5. Column names of the reporting model: `month`, `kpi_name`, `funnel_step`, `deals_count`
 6. “Git commit” all the changes and create a PR to your forked repo (not the original one). Send your repo link to us.
+
+## Notes
