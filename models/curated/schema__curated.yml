@@ -1,0 +1,18 @@
+models:
+  - name: cl_activity
+    columns:
+      - name: activity_id
+      - name: type
+      - name: assigned_to_user
+      - name: deal_id
+      - name: done
+      - name: due_date
+  - name: cl_lost_reasons
+    # would omit this one on daily runs as it is static data
+    columns:
+      - name: lost_reason_id
+        data_tests:
+          - not_null
+          - unique
+      - name: lost_reason
+  - name: cl_deal_changes
