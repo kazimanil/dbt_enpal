@@ -1,6 +1,10 @@
 models:
   - name: cl_activity
     columns:
+      - name: unique_activity_id
+        tests:
+          - not_null
+          - unique
       - name: activity_id
       - name: type
       - name: assigned_to_user
