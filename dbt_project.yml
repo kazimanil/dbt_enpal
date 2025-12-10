@@ -18,8 +18,10 @@ models:
     curated:
       +schema: cl_enpal
       +materialized: table
-      +tags: ['curated']
+      +tags:
+        - "curated"
     reporting:
       +schema: rl_enpal
       +materialized: table
-      +tags: ['reporting']
+      +tags:
+        - "reporting"
