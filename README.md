@@ -36,3 +36,70 @@
 6. “Git commit” all the changes and create a PR to your forked repo (not the original one). Send your repo link to us.
 
 ## Notes
+
+Usually funnel views are snapshots of the current state of the deals. However, in this case, final output requires historical data as well throughout the required `month` column. Therefore, I will create a curated table `cl_deal_stages` to capture the historical changes to the deal stages.
+
+### Data Preparation
+
+#### Activity Types Table
+
+A simple table with more detail on the activity types. It shows `Follow Up Call` to be not active. However, I will ignore that as it is used in the `activity` table and required to calculate the 8th step of the funnel.
+
+#### Stages Table
+Stages table explain the changes to the deal stages from the `deal_changes` table. However checking the `deal_changes` table alone won't help us solve this task as there are two call steps for 2nd and 3rd stages. In order to catch those, `activity` table also needs to be considered. 
+
+```
+1 Lead Generation
+2 Qualified Lead
+3 Needs Assessment
+4 Proposal/Quote Preparation
+5 Negotiation
+6 Closing
+7 Implementation/Onboarding
+8 Follow-up/Customer Success
+9 Renewal/Expansion
+```
+
+This table could also be created via parsing the JSON template in the `fields` table's lost_reason row.
+
+#### Fields Table
+
+It is explaining the fields of other tables in a JSON format. It could be used to understand to the meaning of the lost reasons. I will utilise a JSON parse to create `cl_activity` table.
+
+#### Activity Table
+
+Each record has two duplicates here. So I will de-duplicate it for the curated pipeline.
+
+```
+SELECT COUNT(*) FROM (SELECT DISTINCT * FROM activity) -- 4579
+```
+
+#### Users Table
+
+There are 21 users with duplicate names. However, their IDs are different and we are focused on deals, so I will not take any action on this.
+
+```
+SELECT 
+    COUNT(DISTINCT(name)),  -- 1766
+    COUNT(*) -- 1787
+FROM users;
+```
+
+To query the list of users with multiple IDs (or users with the same name):
+
+```
+SELECT *
+FROM users WHERE name IN (
+  SELECT name
+  FROM users
+  GROUP BY 1
+  HAVING COUNT(id) > 1
+)
+ORDER BY 2, 1;
+```
+
+## Glossary
+
+I used these two websited to acquaint myself with Pipedrive terms:
+- [Pipedrive GLossary](https://support.pipedrive.com/en/article/pipedrive-glossary)
+- [Top Result on Google for Pipedrive Terms](https://www.google.com/search?q=Pipedrive+CRM+tool+terms&oq=Pipedrive+CRM+tool+terms&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg70gEHMzI2ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8)
