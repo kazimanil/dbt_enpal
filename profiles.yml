@@ -1,4 +1,4 @@
-enpal_assessment_project:
+dbt_enpal:
   outputs:
     dev:
       dbname: postgres
