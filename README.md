@@ -50,8 +50,8 @@ Stages table explain the changes to the deal stages from the `deal_changes` tabl
 
 ```
 1 Lead Generation
-2 Qualified Lead
-3 Needs Assessment
+2 Qualified Lead _possibly with a Sales Call 1_
+3 Needs Assessment _possibly with a Sales Call 2_
 4 Proposal/Quote Preparation
 5 Negotiation
 6 Closing
@@ -73,6 +73,10 @@ Each record has two duplicates here. So I will de-duplicate it for the curated p
 ```
 SELECT COUNT(*) FROM (SELECT DISTINCT * FROM activity) -- 4579
 ```
+
+There is only one exception where `sc_2` happens earlier than `meeting` for the same deal (deal_id = 960413). For this case, I will ignore this exception and not illustrate it in the final output. 
+
+I know this is not realistic but I will go for the faster solution due to the time limit here.
 
 #### Users Table
 
