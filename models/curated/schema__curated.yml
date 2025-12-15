@@ -12,11 +12,39 @@ models:
       - name: done
       - name: due_date
   - name: cl_lost_reasons
-    # would omit this one on daily runs as it is static data
     columns:
       - name: lost_reason_id
-        data_tests:
+        tests:
           - not_null
           - unique
       - name: lost_reason
-  - name: cl_deal_changes
+  - name: cl_deals
+    columns:
+      - name: unique_activity_id
+        tests:
+          - not_null
+          - unique
+      - name: deal_id
+      - name: change_time
+      - name: changed_field_key
+      - name: new_value
+  - name: cl_deal_stages
+    columns:
+      - name: deal_id
+        tests:
+          - not_null
+          - unique
+      - name: deal_generated_at
+      - name: lead_generated_at
+      - name: qualified_lead_at
+      - name: needs_assessment_at
+      - name: proposal_quote_preparation_at
+      - name: negotiation_at
+      - name: closing_at
+      - name: implementation_at
+      - name: activated_at
+      - name: renewal_at
+      - name: churned_at
+      - name: lost_reason
+      - name: sales_call_1_scheduled_at
+      - name: sales_call_2_scheduled_at
