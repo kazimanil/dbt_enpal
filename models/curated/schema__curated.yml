@@ -1,5 +1,5 @@
 models:
-  - name: cl_activity
+  - name: activity
     description: |
       This table captures calls and their details.
     columns:
@@ -13,7 +13,7 @@ models:
       - name: deal_id
       - name: done
       - name: due_date
-  - name: cl_lost_reasons
+  - name: lost_reasons
     description: |
       This table helps us to match lost reason IDs to their respective lost reason descriptions.
     columns:
@@ -22,7 +22,7 @@ models:
           - not_null
           - unique
       - name: lost_reason
-  - name: cl_deals
+  - name: deals
     description: |
       This table captures the various stages of a deal along with their respective timestamps.
     columns:
@@ -34,7 +34,7 @@ models:
       - name: change_time
       - name: changed_field_key
       - name: new_value
-  - name: cl_deal_stages
+  - name: deal_stages
     description: |
       This table combines the various stages of a deal along with the calls and their respective timestamps.
       This table isn't a great intermediate table for the task at hand but it is a great table to have in a curated layer.
