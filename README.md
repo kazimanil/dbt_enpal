@@ -37,7 +37,7 @@
 
 ## Notes
 
-Usually funnel views are snapshots of the current state of the deals. However, in this case, final output requires historical data as well throughout the required `month` column. Therefore, I will create a curated table `cl_deal_stages` to capture the historical changes to the deal stages.
+Usually funnel views are snapshots of the current state of the deals. However, in this case, final output requires historical data as well throughout the required `month` column. Therefore, I will create a curated table `deal_stages` to capture the historical changes to the deal stages.
 
 ### Data Preparation
 
@@ -64,7 +64,7 @@ This table could also be created via parsing the JSON template in the `fields` t
 
 #### Fields Table
 
-It is explaining the fields of other tables in a JSON format. It could be used to understand to the meaning of the lost reasons. I will utilise a JSON parse to create `cl_activity` table.
+It is explaining the fields of other tables in a JSON format. It could be used to understand to the meaning of the lost reasons. I will utilise a JSON parse to create `activity` table.
 
 #### Activity Table
 
@@ -90,7 +90,7 @@ HAVING COUNT(*) > 1;
 This will reduce the table size from 92436 to 15406 rows.
 
 ```
-SELECT COUNT(*) FROM public_cl_enpal.cl_deals; -- 15406
+SELECT COUNT(*) FROM public_cl_enpal.deals; -- 15406
 SELECT COUNT(*) FROM deal_changes; -- 92436
 ```
 
@@ -119,9 +119,14 @@ FROM users WHERE name IN (
 )
 ORDER BY 2, 1;
 ```
+#### Curated Layer
+
+These tables are described in the schema__curated.yml file. They are prepared according to the notes above.
+
+#### Reporting Layer
 
 ## Glossary
 
 I used these two websited to acquaint myself with Pipedrive terms:
-- [Pipedrive GLossary](https://support.pipedrive.com/en/article/pipedrive-glossary)
+- [Pipedrive Glossary](https://support.pipedrive.com/en/article/pipedrive-glossary)
 - [Top Result on Google for Pipedrive Terms](https://www.google.com/search?q=Pipedrive+CRM+tool+terms&oq=Pipedrive+CRM+tool+terms&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg70gEHMzI2ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8)

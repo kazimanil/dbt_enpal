@@ -13,7 +13,7 @@ WITH deals AS (
         MAX(CASE WHEN changed_field_key = 'stage_id' AND new_value = '9' THEN change_time::timestamptz END) AS renewal_at,
         MAX(CASE WHEN changed_field_key = 'lost_reason' THEN change_time::timestamptz END) AS churned_at,
         MAX(CASE WHEN changed_field_key = 'lost_reason' THEN new_value::int END) AS lost_reason_id
-    FROM {{ ref('cl_deals') }}
+    FROM {{ ref('deals') }}
     GROUP BY 1
 ),
 
@@ -22,7 +22,7 @@ calls AS (
         deal_id,
         MAX(CASE WHEN type = 'meeting' THEN due_to::timestamptz END) AS sales_call_1_scheduled_at,
         MAX(CASE WHEN type = 'sc_2' THEN due_to::timestamptz END) AS sales_call_2_scheduled_at
-    FROM {{ ref('cl_activity') }}
+    FROM {{ ref('activity') }}
     GROUP BY 1
 )
 
@@ -45,5 +45,5 @@ SELECT
 FROM deals AS d
 FULL JOIN calls AS c
     ON d.deal_id = c.deal_id
-LEFT JOIN {{ ref('cl_lost_reasons') }} AS clr
+LEFT JOIN {{ ref('lost_reasons') }} AS clr
     ON d.lost_reason_id = clr.lost_reason_id
