@@ -1,5 +1,7 @@
 models:
   - name: cl_activity
+    description: |
+      This table captures calls and their details.
     columns:
       - name: unique_activity_id
         tests:
@@ -12,6 +14,8 @@ models:
       - name: done
       - name: due_date
   - name: cl_lost_reasons
+    description: |
+      This table helps us to match lost reason IDs to their respective lost reason descriptions.
     columns:
       - name: lost_reason_id
         tests:
@@ -19,6 +23,8 @@ models:
           - unique
       - name: lost_reason
   - name: cl_deals
+    description: |
+      This table captures the various stages of a deal along with their respective timestamps.
     columns:
       - name: unique_activity_id
         tests:
@@ -29,6 +35,8 @@ models:
       - name: changed_field_key
       - name: new_value
   - name: cl_deal_stages
+    description: |
+      This table combines the various stages of a deal along with the calls and their respective timestamps.
     columns:
       - name: deal_id
         tests:
