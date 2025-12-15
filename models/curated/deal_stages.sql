@@ -1,6 +1,7 @@
 WITH deals AS (
     SELECT
         deal_id,
+        -- keeps the latest occurence for the deals that has been reactivated.
         MAX(CASE WHEN changed_field_key = 'add_time' THEN TO_TIMESTAMP('%Y-%m-%dT%H:%M:%S%z', new_value) END) AS deal_generated_at,
         MAX(CASE WHEN changed_field_key = 'stage_id' AND new_value = '1' THEN change_time::timestamptz END) AS lead_generated_at,
         MAX(CASE WHEN changed_field_key = 'stage_id' AND new_value = '2' THEN change_time::timestamptz END) AS qualified_lead_at,
