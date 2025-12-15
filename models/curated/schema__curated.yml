@@ -37,6 +37,7 @@ models:
   - name: cl_deal_stages
     description: |
       This table combines the various stages of a deal along with the calls and their respective timestamps.
+      This table isn't a great intermediate table for the task at hand but it is a great table to have in a curated layer.
     columns:
       - name: deal_id
         tests:
