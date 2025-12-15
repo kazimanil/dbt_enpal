@@ -1,0 +1,17 @@
+models:
+  - name: rep_sales_funnel_monthly
+    description: |
+      Final reporting table to capture sales funnel metrics on a monthly basis.
+    columns:
+      - name: month
+        description: Date of activity, truncated to month.
+        tests:
+          - not_null
+      - name: kpi_name
+        description: Name of the KPI metric.
+        tests:
+          - not_null
+      - name: funnel_step
+        description: The step in the sales funnel in string format, to be inclusive for steps 2.1 and 3.1.
+      - name: deals_count
+        description: Count of deals for the respective funnel step and month.
