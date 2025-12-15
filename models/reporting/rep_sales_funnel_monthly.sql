@@ -1,8 +1,4 @@
-{{
-  config(
-    materialized = 'incremental',
-    )
-}}
+{{ config(materialized = 'incremental') }}
 
 SELECT
     DATE_TRUNC('month', change_time)::date AS month,

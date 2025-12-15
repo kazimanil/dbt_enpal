@@ -1,3 +1,5 @@
+{{ config(unique_key='unique_activity_id') }}
+
 WITH deduplicated AS (
     SELECT DISTINCT *
     FROM {{ source('enpal', 'deal_changes') }}

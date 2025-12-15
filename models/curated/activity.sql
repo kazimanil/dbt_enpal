@@ -1,7 +1,4 @@
-{{
-    config(
-        unique_key='unique_activity_id'
-) }}
+{{ config(unique_key='unique_activity_id') }}
 
 WITH deduplicated AS (
     SELECT DISTINCT *
@@ -12,7 +9,7 @@ SELECT
     CONCAT(activity_id, '_', due_to) AS unique_activity_id,
     *
 FROM deduplicated
--- For this deal, we have an exception where sales_call_2 is 
+-- For this deal, we have an exception where sales_call_2 is
 -- scheduled before sales_call_1. I assume that should not happen
 -- in normal cases, so I will exclude this deal from the final output
 WHERE

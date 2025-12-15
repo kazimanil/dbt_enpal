@@ -1,6 +1,7 @@
 {{
     config(
-        skip=true
+        skip=true,
+        unique_key='lost_reason_id'
 ) }}
 
 

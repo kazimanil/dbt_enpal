@@ -1,3 +1,5 @@
+{{ config(unique_key='deal_id') }}
+
 WITH deals AS (
     SELECT
         deal_id,
