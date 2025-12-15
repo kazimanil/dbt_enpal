@@ -74,9 +74,27 @@ Each record has two duplicates here. So I will de-duplicate it for the curated p
 SELECT COUNT(*) FROM (SELECT DISTINCT * FROM activity) -- 4579
 ```
 
-There is only one exception where `sc_2` happens earlier than `meeting` for the same deal (deal_id = 960413). For this case, I will ignore this exception and not illustrate it in the final output. 
+There is only one exception where `sc_2` happens earlier than `meeting` for the same deal (deal_id = 960413). For this case, I will ignore this exception and not illustrate it in the final output. This case also doesn't have any records in the deal changes table, so this is a safe assumption.
 
-I know this is not realistic but I will go for the faster solution due to the time limit here.
+#### Deal Changes Table
+
+There are cases with duplicate entries again on this table. I will first eliminate those duplicates.
+
+```
+SELECT deal_id, changed_field_key, new_value, COUNT(*)
+FROM public.deal_changes
+GROUP BY 1, 2, 3
+HAVING COUNT(*) > 1;
+```
+
+This will reduce the table size from 92436 to 15406 rows.
+
+```
+SELECT COUNT(*) FROM public_cl_enpal.cl_deals; -- 15406
+SELECT COUNT(*) FROM deal_changes; -- 92436
+```
+
+On top of this duplication, there are some cases where the process is restarted (see `955417` for an example). As we are interested only in the amount of changes and there is no warning that states a process can't be restarted, I will keep those records as is.
 
 #### Users Table
 
