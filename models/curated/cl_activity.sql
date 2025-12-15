@@ -1,11 +1,16 @@
+{{
+    config(
+        unique_key='unique_activity_id'
+) }}
+
 WITH deduplicated AS (
     SELECT DISTINCT *
     FROM {{ source('enpal', 'activity') }}
 )
 
 SELECT
-    *,
-    CONCAT(activity_id, '_', due_to) AS unique_activity_id
+    CONCAT(activity_id, '_', due_to) AS unique_activity_id,
+    *
 FROM deduplicated
 -- For this deal, we have an exception where sales_call_2 is 
 -- scheduled before sales_call_1. I assume that should not happen
